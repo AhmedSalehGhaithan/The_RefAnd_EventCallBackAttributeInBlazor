@@ -1,0 +1,22 @@
+﻿
+@rendermode InteractiveServer
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <InputText class="form-control mb-2" @bind-Value="Name"></InputText>
+            <button class="btn btn-info" @onclick="HandelAddName">Add To List</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    public string? Name { get; set; }
+    [Parameter] public EventCallback<string>AddNameEventCallback { get; set; }
+
+    private void HandelAddName()
+    {
+        if (string.IsNullOrEmpty(Name) || string.IsNullOrWhiteSpace(Name)) return;
+        AddNameEventCallback.InvokeAsync(Name);
+        Name = string.Empty;
+    }
+}

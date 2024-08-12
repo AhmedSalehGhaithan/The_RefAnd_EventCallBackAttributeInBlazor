@@ -1,0 +1,34 @@
+﻿@page "/homepage"
+@rendermode InteractiveServer
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">List of Names using Callback attribute</div>
+                <div class="card-body">
+                    <ol>
+                        @if (Names.Count! > 0)
+                        {
+                            @foreach (var name in Names)
+                            {
+                                <li class="list-group-item">@name</li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<EventAddItemComponent AddNameEventCallbac="AddName"></EventAddItemComponent>
+
+@code {
+    private List<string> Names { get; set; } = new();
+    public void AddName(string name)
+    {
+        if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return;
+        Names.Add(name);
+        StateHasChanged();
+    }
+}
